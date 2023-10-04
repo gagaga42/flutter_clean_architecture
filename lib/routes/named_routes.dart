@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 
 abstract class Routes {
+  static const String FIRST = "/first";
   static String Maker({
     required String nextRoute,
     Map<String, String>? parameters,
