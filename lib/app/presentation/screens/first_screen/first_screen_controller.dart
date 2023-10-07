@@ -28,4 +28,12 @@ class FirstScreenController extends GetxController{
       _pwd(pwdCon.text);
     });
   }
+
+  @override
+  void onClose() {
+    super.onClose();
+    // 이거 해줘야 메모리 누수를 막을 수 있음
+    idCon.dispose();
+    pwdCon.dispose();
+  }
 }
