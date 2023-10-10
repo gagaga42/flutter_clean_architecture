@@ -1,8 +1,10 @@
 import 'package:get/get.dart';
 
 abstract class Routes {
+  static const String SPLASH = "/";
   static const String FIRST = "/first";
   static const String SIGN_UP = "/sign-up";
+  static const String MAIN = "/main";
   static String Maker({
     required String nextRoute,
     Map<String, String>? parameters,

@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:mobile_app/routes/get_pages.dart';
 
 import 'routes/named_routes.dart';
 
-void main() {
+void main() async {
+  await Hive.initFlutter();
+  await Hive.openBox<String>("user");
+  await Hive.openBox<String>("auth");
   runApp(const MyApp());
 }
 
@@ -22,7 +26,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       // 여기가 핵심, Get을 활용하여 라우팅을 어떻게 관리하는가에 대한
-      initialRoute: Routes.FIRST,
+      initialRoute: Routes.SPLASH,
       getPages: GetPages.pages,
     );
   }

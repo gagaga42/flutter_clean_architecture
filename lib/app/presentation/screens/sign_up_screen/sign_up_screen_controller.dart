@@ -1,7 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:mobile_app/app/domain/use_cases/sign_up_use_case.dart';
+import 'package:mobile_app/app/presentation/screens/first_screen/first_screen_controller.dart';
+import 'package:mobile_app/routes/named_routes.dart';
 
 class SignUpScreenController extends GetxController {
+  final SignUpUseCase _signUpUseCase;
+
   final idCon = TextEditingController();
   bool _idNotEmpty = false;
   final nameCon = TextEditingController();
@@ -53,5 +58,25 @@ class SignUpScreenController extends GetxController {
     final name = nameCon.text;
     final pwd = pwdCon.text;
     final pwdCheck = pwdCheckCon.text;
+    if (pwd != pwdCheck) {
+      Get.snackbar('에러', '비밀번호 확인과 비밀번호가 다름');
+      return;
+    }
+    _signUpUseCase.call(
+      id: id,
+      pwd: pwd,
+      name: name,
+      onSuccess: () {
+        Get.offNamed(Routes.MAIN);
+        Get.find<FirstScreenController>().fetchUsers();
+      },
+      onFail: () {
+        Get.snackbar('에러', '회원가입 실패');
+      }
+    );
   }
+
+  SignUpScreenController({
+    required SignUpUseCase signUpUseCase,
+  }) : _signUpUseCase = signUpUseCase;
 }
